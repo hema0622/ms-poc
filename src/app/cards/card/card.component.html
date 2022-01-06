@@ -1,0 +1,59 @@
+<div id="mySidebar" class="sidebar"  [ngClass]="{'mySidebar': showNavCalss}">
+  <a href="javascript:void(0)" class="closebtn" (click)="closebtn()">×</a>
+  <a href="#"><i class="fas fa-minus"></i> <span class="ml-1">Edit</span></a>
+  <a href="#" (click)="openModal()"><i class="fas fa-plus"></i> <span class="ml-2" >New widget</span></a>
+</div>
+
+<div id="main" [ngClass]="{'main': mainClass}">
+  <button class="openbtn" (click)="openNav()">☰</button>
+  <div class="card" style="width: 18rem;" *ngFor="let item of cardlist; index as i">
+    <img class="card-img-top" src="{{item.image}}" alt="Card image cap">
+    <div class="card-body mt-2">
+      <i class="fas fa-plus-circle plus_icon"></i>
+      <h5 class="card-title">{{item.name}}</h5>
+      <p class="card-text"> {{item.url}}</p>
+      <a href="#" class="btn btn-primary"  data-toggle="modal" data-target="#myModal1">Go somewhere</a>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal show" data-backdrop="static" [ngStyle]="{'display':display}"
+  data-keyboard="false" id="deleteModal" role="dialog" tabindex="-1" aria-modal="true"
+  style="padding-right: 16px;">
+  <div  class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Widget Options</h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="closeModal()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+            <div class="row">
+              <div class="col-4">URL</div>
+              <div class="col-8"> <input type="url" value="{{test1}}" (input)="changeText('url', $event.target)" #urlN/></div>
+            </div>
+            <div class="row">
+              <div class="col-4">Name</div>
+              <div class="col-8"><input type="url" value="{{test1}}" (input)="changeText('name', $event.target)" #nameN/></div>
+            </div>
+            <div class="row">
+              <div class="col-4">Pitcher</div>
+              <div class="col-8"><input type="file" (change)="getBase64($event)" #fileN></div>
+            </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="save()" [disabled]="url == '' && name == '' && tempImagestorge == ''">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop show" [ngStyle]="{'display':display}" *ngIf="display=='block'? true : false"></div>
